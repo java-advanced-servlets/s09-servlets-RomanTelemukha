@@ -2,7 +2,6 @@ package com.softserve.itacademy.controller;
 
 import com.softserve.itacademy.repository.TaskRepository;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -38,5 +37,5 @@ public class DeleteTaskServlet extends HttpServlet {
 
         response.sendRedirect("/tasks-list");
     }
-    
+
 }
