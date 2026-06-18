@@ -18,6 +18,12 @@ public class Task {
         id = counter++;
     }
 
+    public Task(String title, Priority priority, int id) {
+        this.title = title;
+        this.priority = priority;
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
