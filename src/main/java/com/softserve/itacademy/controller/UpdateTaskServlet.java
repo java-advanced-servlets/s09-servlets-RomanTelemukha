@@ -26,8 +26,20 @@ public class UpdateTaskServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/edit-task.jsp");
-        requestDispatcher.forward(request, response);
+        String requestId = request.getParameter("id");
+
+        if(requestId != null && !requestId.isEmpty()) {
+            int id = Integer.parseInt(requestId);
+            Task task = taskRepository.read(id);
+            if(task != null){
+                request.setAttribute("task", task);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/edit-task.jsp");
+                requestDispatcher.forward(request, response);
+                return;
+            }
+        }
+
+        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Task not found!!!");
     }
 
     @Override

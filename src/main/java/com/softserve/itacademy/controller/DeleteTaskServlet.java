@@ -24,6 +24,11 @@ public class DeleteTaskServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String idParam = request.getParameter("id");
 
         if (idParam != null && !idParam.isEmpty()) {
@@ -37,5 +42,4 @@ public class DeleteTaskServlet extends HttpServlet {
 
         response.sendRedirect("/tasks-list");
     }
-
 }
