@@ -40,6 +40,6 @@ public class DeleteTaskServlet extends HttpServlet {
             }
         }
 
-        response.sendRedirect("/tasks-list");
+        response.sendRedirect(request.getContextPath() + "/tasks-list");
     }
 }

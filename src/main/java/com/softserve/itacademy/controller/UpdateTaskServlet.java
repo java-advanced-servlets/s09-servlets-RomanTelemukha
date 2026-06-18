@@ -48,17 +48,19 @@ public class UpdateTaskServlet extends HttpServlet {
         String requestPriority = request.getParameter("priority");
         String requestId = request.getParameter("id");
 
+        Task newTask = null;
+
         if(title != null && !title.isEmpty() && requestPriority != null && !requestPriority.isEmpty()
             && requestId != null && !requestId.isEmpty()) {
 
             try{
                 int id = Integer.parseInt(requestId);
                 Priority priority = Priority.valueOf(requestPriority);
-                Task newTask = new Task(title, priority, id);
+                newTask = new Task(title, priority, id);
 
                 boolean updated = taskRepository.update(newTask);
                 if(updated) {
-                    response.sendRedirect("/tasks-list");
+                    response.sendRedirect(request.getContextPath() + "/tasks-list");
                     return;
                 }else{
                     request.setAttribute("error", "Task with this index doesn`t exist!!!");
@@ -70,7 +72,13 @@ public class UpdateTaskServlet extends HttpServlet {
             request.setAttribute("error", "All parameters must be present!!!");
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/edit-task.jsp");
-        requestDispatcher.forward(request, response);
+        try {
+            int id = Integer.parseInt(requestId);
+            request.setAttribute("task", taskRepository.read(id));
+        } catch (NumberFormatException e) {
+            request.setAttribute("task", new Task());
+        }
+
+        request.getRequestDispatcher("/WEB-INF/pages/edit-task.jsp").forward(request, response);
     }
 }
