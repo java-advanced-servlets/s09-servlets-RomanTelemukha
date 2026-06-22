@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <%@include file="header.html" %>
+    <%@include file="header.jsp" %>
     <form action="${pageContext.request.contextPath}/edit-task" method="post">
         <input type="hidden" id="id" name="id" class="form-control"
                value="${task.id}"

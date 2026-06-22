@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <%@include file="header.html"%>
+    <%@include file="header.jsp"%>
     <table>
         <tr>
             <th>No.</th>

@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <%@include file="header.html"%>
+    <%@include file="header.jsp"%>
 
     <div class="form-container">
         <h2>Create New Task</h2>

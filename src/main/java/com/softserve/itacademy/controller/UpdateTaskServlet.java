@@ -39,7 +39,7 @@ public class UpdateTaskServlet extends HttpServlet {
             }
         }
 
-        request.setAttribute("error", "Task not found!!!");
+        request.setAttribute("message", "Task not found!!!");
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request, response);
     }
@@ -62,18 +62,18 @@ public class UpdateTaskServlet extends HttpServlet {
 
                 boolean updated = taskRepository.update(newTask);
                 if(!updated) {
-                    request.setAttribute("error", "Task not found!!!");
+                    request.setAttribute("message", "Task not found!!!");
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request, response);
                     return;
                 }
             }catch (IllegalArgumentException e) {
-                request.setAttribute("error", "Illegal parameters!!!");
+                request.setAttribute("message", "Illegal parameters!!!");
                 requestDispatcher.forward(request, response);
                 return;
             }
         }else {
-            request.setAttribute("error", "All parameters must be present!!!");
+            request.setAttribute("message", "All parameters must be present!!!");
             requestDispatcher.forward(request, response);
             return;
         }

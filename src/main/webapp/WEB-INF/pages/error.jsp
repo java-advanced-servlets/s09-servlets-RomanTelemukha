@@ -9,7 +9,7 @@
     </style>
 </head>
 <body>
-    <%@include file="header.html"%>
+    <%@include file="header.jsp"%>
 
     <div class="error-container">
         <h2 class="text-danger">Error</h2>

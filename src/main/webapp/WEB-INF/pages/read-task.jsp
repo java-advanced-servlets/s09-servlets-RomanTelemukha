@@ -9,7 +9,7 @@
     </style>
 </head>
 <body>
-    <%@include file="header.html"%>
+    <%@include file="header.jsp"%>
 
     <div class="details-container">
         <h2>Task Details</h2>

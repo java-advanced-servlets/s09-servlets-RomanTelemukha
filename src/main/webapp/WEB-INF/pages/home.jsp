@@ -8,7 +8,7 @@
     </style>
 </head>
 <body>
-    <%@include file="header.html"%>
+    <%@include file="header.jsp"%>
 
     <div class="welcome-container">
         <h2>Welcome to the To-Do List Application</h2>

@@ -37,13 +37,13 @@ public class DeleteTaskServlet extends HttpServlet {
                 int id = Integer.parseInt(idParam);
                 boolean deleted = taskRepository.delete(id);
                 if(!deleted){
-                    request.setAttribute("error", "Task with this index doesn`t exist!!!");
+                    request.setAttribute("message", "Task with this index doesn`t exist!!!");
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     requestDispatcher.forward(request, response);
                     return;
                 }
             } catch (NumberFormatException e) {
-                request.setAttribute("error", "Wrong parameter format!!!");
+                request.setAttribute("message", "Wrong parameter format!!!");
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 requestDispatcher.forward(request, response);
                 return;
