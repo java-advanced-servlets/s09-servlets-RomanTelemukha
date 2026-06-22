@@ -40,7 +40,7 @@ public class CreateTaskServlet extends HttpServlet {
             boolean created = taskRepository.create(task);
 
             if (created) {
-                response.sendRedirect("/tasks-list");
+                response.sendRedirect(request.getContextPath() + "/tasks-list");
             } else {
                 request.setAttribute("error", "Task with a given name already exists!");
                 request.setAttribute("title", title);
