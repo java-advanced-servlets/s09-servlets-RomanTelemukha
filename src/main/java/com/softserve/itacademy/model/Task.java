@@ -1,5 +1,7 @@
 package com.softserve.itacademy.model;
 
+import java.util.Objects;
+
 public class Task {
 
     private final int id;
@@ -51,5 +53,19 @@ public class Task {
                 ", title='" + title + '\'' +
                 ", priority=" + priority +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+
+        if(!(obj instanceof Task other)) return false;
+
+        return id == other.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
