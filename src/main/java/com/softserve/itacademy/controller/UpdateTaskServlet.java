@@ -48,7 +48,7 @@ public class UpdateTaskServlet extends HttpServlet {
         String requestPriority = request.getParameter("priority");
         String requestId = request.getParameter("id");
 
-        Task newTask = null;
+        var requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/edit-task.jsp");
 
         if(title != null && !title.isEmpty() && requestPriority != null && !requestPriority.isEmpty()
             && requestId != null && !requestId.isEmpty()) {
@@ -56,29 +56,24 @@ public class UpdateTaskServlet extends HttpServlet {
             try{
                 int id = Integer.parseInt(requestId);
                 Priority priority = Priority.valueOf(requestPriority);
-                newTask = new Task(title, priority, id);
+                Task newTask = new Task(title, priority, id);
 
                 boolean updated = taskRepository.update(newTask);
-                if(updated) {
-                    response.sendRedirect(request.getContextPath() + "/tasks-list");
+                if(!updated) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Task with this index doesn`t exist!!!");
                     return;
-                }else{
-                    request.setAttribute("error", "Task with this index doesn`t exist!!!");
                 }
             }catch (IllegalArgumentException e) {
                 request.setAttribute("error", "Illegal parameters!!!");
+                requestDispatcher.forward(request, response);
+                return;
             }
         }else {
             request.setAttribute("error", "All parameters must be present!!!");
+            requestDispatcher.forward(request, response);
+            return;
         }
 
-        try {
-            int id = Integer.parseInt(requestId);
-            request.setAttribute("task", taskRepository.read(id));
-        } catch (NumberFormatException e) {
-            request.setAttribute("task", new Task());
-        }
-
-        request.getRequestDispatcher("/WEB-INF/pages/edit-task.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/tasks-list");
     }
 }

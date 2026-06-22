@@ -34,9 +34,14 @@ public class DeleteTaskServlet extends HttpServlet {
         if (idParam != null && !idParam.isEmpty()) {
             try {
                 int id = Integer.parseInt(idParam);
-                taskRepository.delete(id);
+                boolean deleted = taskRepository.delete(id);
+                if(!deleted){
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Task with this index doesn`t exist!!!");
+                    return;
+                }
             } catch (NumberFormatException e) {
-                //Just ignore it.....
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Wrong parameter format!!!");
+                return;
             }
         }
 
