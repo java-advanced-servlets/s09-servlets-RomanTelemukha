@@ -12,7 +12,7 @@
 <body>
     <%@include file="header.html" %>
     <form action="${pageContext.request.contextPath}/edit-task" method="post">
-        <input type="hidden" id="id" name="hiddenIdInput" class="form-control"
+        <input type="hidden" id="id" name="id" class="form-control"
                value="${task.id}"
                required>
         <div class="form-group">
