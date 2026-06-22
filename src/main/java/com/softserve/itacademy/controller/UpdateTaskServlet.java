@@ -39,7 +39,9 @@ public class UpdateTaskServlet extends HttpServlet {
             }
         }
 
-        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Task not found!!!");
+        request.setAttribute("error", "Task not found!!!");
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request, response);
     }
 
     @Override
@@ -60,7 +62,9 @@ public class UpdateTaskServlet extends HttpServlet {
 
                 boolean updated = taskRepository.update(newTask);
                 if(!updated) {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Task with this index doesn`t exist!!!");
+                    request.setAttribute("error", "Task not found!!!");
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    request.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(request, response);
                     return;
                 }
             }catch (IllegalArgumentException e) {

@@ -28,19 +28,24 @@ public class DeleteTaskServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String idParam = request.getParameter("id");
+        var requestDispatcher = request.getRequestDispatcher("/WEB-INF/pages/error.jsp");
 
         if (idParam != null && !idParam.isEmpty()) {
             try {
                 int id = Integer.parseInt(idParam);
                 boolean deleted = taskRepository.delete(id);
                 if(!deleted){
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Task with this index doesn`t exist!!!");
+                    request.setAttribute("error", "Task with this index doesn`t exist!!!");
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    requestDispatcher.forward(request, response);
                     return;
                 }
             } catch (NumberFormatException e) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Wrong parameter format!!!");
+                request.setAttribute("error", "Wrong parameter format!!!");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                requestDispatcher.forward(request, response);
                 return;
             }
         }
